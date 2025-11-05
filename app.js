@@ -2,7 +2,7 @@
 const input = document.getElementById("Input");
 const buscarBtn = document.getElementById("searchBtn");
 const rickedex = document.getElementById("rickedex");
-const modoBtn = document.getElementById("themeBtn");
+
 
 //Evento click para buscar
 buscarBtn.addEventListener("click", () => {
@@ -12,23 +12,27 @@ buscarBtn.addEventListener("click", () => {
   //Si hay contenido en el input hago el fetch
   if (inputValor) {
     fetch(`https://rickandmortyapi.com/api/character/?name=${inputValor}`)
-      .then(response => response.json())  
+      .then(response => {
+        if(!response.ok) throw new Error("noResults");
+        return response.json();
+        })
       .then(data => {
-        console.log(data)
+          console.log(data)
 
-        rickedex.className = "container text-center"; //Le agrego clases de bootstrap al contenedor
+          rickedex.className = "container text-center"; //Le agrego clases de bootstrap al contenedor
 
-        const row = document.createElement("div"); 
-        row.className = "row justify-content-center";
-        rickedex.appendChild(row); // Creo un div con clases bootstrap
+          const row = document.createElement("div");
+          row.className = "row justify-content-center";
+          rickedex.appendChild(row); // Creo un div con clases bootstrap
 
-        //Manejo cada elemento de la respuesta
-        data.results.forEach(element => {
+          //Manejo cada elemento de la respuesta
+          data.results.forEach(element => {
 
-          const col = document.createElement("div");
-          col.className = "col-md-3 mb-4";
+            const col = document.createElement("div");
+            col.className = "col-md-3 mb-4";
 
-          col.innerHTML = `
+            //Inserto la informacion en las tarjetas
+            col.innerHTML = `
         <div class="card h-100 mt-3">
           <img src="${element.image}" class="card-img-top" alt="${element.name}">
           <div class="card-body">
@@ -40,17 +44,12 @@ buscarBtn.addEventListener("click", () => {
             </ul>
         </div>
           `;
-        
-          row.appendChild(col);
 
-        });
-      
-      })
-
-      //Si hay error
-      .catch(error => {
+            row.appendChild(col);
+          });
+        })
+      .catch(() => {
         rickedex.innerHTML = `<p class="error">⚠️ Ningun personaje con este nombre</p>`;
-
       });
   }
 });
@@ -60,11 +59,12 @@ const themeBtn = document.getElementById("themeBtn")
 const body = document.body;
 
 themeBtn.addEventListener("click", () => {
-  if (body.className === "light"){
+  if (body.className === "light") {
     body.className = "dark"
     themeBtn.textContent = 'Cambiar a modo claro'
   } else {
     body.className = "light"
+    themeBtn.textContent = "Cambiar a modo oscuro"
   }
 })
 

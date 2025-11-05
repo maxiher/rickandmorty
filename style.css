@@ -9,6 +9,7 @@ body {
 h1 {
   padding-top: 20px;
 }
+
 #rickedex {
   margin-bottom: 20px;
 }
@@ -24,23 +25,18 @@ img {
 }
 
 
-button {
+#searchBtn, #themeBtn {
   margin-top: 15px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 20%;
+  width: 200px;
+  height: 40px;
+  border-radius: 15px;
   cursor: pointer;
   font-weight: bold;
+  background-color: white;
 }
 
-/* Tema claro */
 .light {
   background-color: rgb(225, 241, 252);
-  color: black;
-}
-
-.light #themeBtn {
-  background-color: #f1f1f1;
   color: black;
 }
 
@@ -51,7 +47,7 @@ button {
 }
 
 .dark h4 {
-  color: black;
+  color: rgb(0, 0, 0);
 }
 
 .dark #themeBtn {
