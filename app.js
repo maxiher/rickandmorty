@@ -1,29 +1,32 @@
 // Elementos del DOM
-const input = document.getElementById("pokemonInput");
+const input = document.getElementById("Input");
 const buscarBtn = document.getElementById("searchBtn");
 const rickedex = document.getElementById("rickedex");
 const modoBtn = document.getElementById("themeBtn");
 
-
+//Evento click para buscar
 buscarBtn.addEventListener("click", () => {
-  const inputValor = input.value.toLowerCase();
-  rickedex.innerHTML = "";
+  const inputValor = input.value.toLowerCase().trim(); //Tomo el contenido del input en minusculas y sin espacios
+  rickedex.innerHTML = ""; //Limpio el contenedor
+
+  //Si hay contenido en el input hago el fetch
   if (inputValor) {
     fetch(`https://rickandmortyapi.com/api/character/?name=${inputValor}`)
       .then(response => response.json())  
       .then(data => {
         console.log(data)
 
-        rickedex.className = "container text-center"
-        const row = document.createElement("div")
-        row.className = "row justify-content-center"
-        rickedex.appendChild(row);
+        rickedex.className = "container text-center"; //Le agrego clases de bootstrap al contenedor
 
+        const row = document.createElement("div"); 
+        row.className = "row justify-content-center";
+        rickedex.appendChild(row); // Creo un div con clases bootstrap
+
+        //Manejo cada elemento de la respuesta
         data.results.forEach(element => {
 
-
           const col = document.createElement("div");
-          col.className = "col-md-3 mb-4"
+          col.className = "col-md-3 mb-4";
 
           col.innerHTML = `
         <div class="card h-100 mt-3">
@@ -38,7 +41,7 @@ buscarBtn.addEventListener("click", () => {
         </div>
           `;
         
-          row.appendChild(col)
+          row.appendChild(col);
 
         });
       
@@ -59,6 +62,7 @@ const body = document.body;
 themeBtn.addEventListener("click", () => {
   if (body.className === "light"){
     body.className = "dark"
+    themeBtn.textContent = 'Cambiar a modo claro'
   } else {
     body.className = "light"
   }
