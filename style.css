@@ -48,6 +48,10 @@ button {
   color: white;
 }
 
+.dark h4 {
+  color: black;
+}
+
 .dark #themeBtn {
   background-color: #444;
   color: white;

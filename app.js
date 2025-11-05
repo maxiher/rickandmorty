@@ -1,16 +1,16 @@
-// Seleccionar elementos del DOM
+// Elementos del DOM
 const input = document.getElementById("pokemonInput");
 const buscarBtn = document.getElementById("searchBtn");
 const rickedex = document.getElementById("rickedex");
 const modoBtn = document.getElementById("themeBtn");
 
-// 2. Evento para buscar Personaje
+
 buscarBtn.addEventListener("click", () => {
   const inputValor = input.value.toLowerCase();
   rickedex.innerHTML = "";
   if (inputValor) {
     fetch(`https://rickandmortyapi.com/api/character/?name=${inputValor}`)
-      .then(response => response.json())  // COMPLETAR: convertir respuesta a JSON 
+      .then(response => response.json())  
       .then(data => {
         console.log(data)
 
@@ -26,7 +26,7 @@ buscarBtn.addEventListener("click", () => {
           col.className = "col-md-3 mb-4"
 
           col.innerHTML = `
-        <div class="card h-100">
+        <div class="card h-100 mt-3">
           <img src="${element.image}" class="card-img-top" alt="${element.name}">
           <div class="card-body">
             <h4 class="card-title">${element.name}</h4>
@@ -43,14 +43,16 @@ buscarBtn.addEventListener("click", () => {
         });
       
       })
+
       //Si hay error
       .catch(error => {
         rickedex.innerHTML = `<p class="error">⚠️ Ningun personaje con este nombre</p>`;
+
       });
   }
 });
 
-// 3. Botón de modo oscuro/claro
+// Botón oscuro/claro
 const themeBtn = document.getElementById("themeBtn")
 const body = document.body;
 
